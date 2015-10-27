@@ -1,0 +1,5 @@
+---
+drill_ver : '0.7.0'
+drill_name : 'apache-drill-{{ drill_ver }}'
+drill_archive : '{{ drill_name }}.tar.gz'
+drill_url : 'http://getdrill.org/drill/download/{{ drill_archive }}'

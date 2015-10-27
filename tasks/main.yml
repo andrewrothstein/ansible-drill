@@ -1,0 +1,10 @@
+---
+- name: download drill...
+  environment: proxy_env
+  get_url: url='{{ drill_url }}' dest='/tmp/{{ drill_archive }}'
+
+- name: unarchive dril...
+  unarchive: copy=no src='/tmp/{{ drill_archive }}' dest='/opt'
+
+- name: link /opt/drill
+  file: src='/opt/{{ drill_name }}' dest='/opt/drill' state=link
