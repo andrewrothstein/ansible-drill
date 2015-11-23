@@ -8,3 +8,11 @@
 
 - name: link /opt/drill
   file: src='/opt/{{ drill_name }}' dest='/opt/drill' state=link
+
+- name: include drill in the default path...
+  copy: >
+    src=etc/profile.d/drill.sh
+    dest=/etc/profile.d/pig.sh
+    mode=644
+    owner=root
+    group=root
