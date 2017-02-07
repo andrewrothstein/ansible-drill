@@ -1,4 +1,4 @@
 ---
 drill_name : apache-drill-{{drill_ver}}
 drill_tgz : '{{drill_name}}.tar.gz'
-drill_url : '{{drill_mirror}}/{{drill_tgz}}'
+drill_url : '{{drill_mirror}}/drill-{{drill_ver}}/{{drill_tgz}}'

@@ -1,4 +1,4 @@
 ---
 drill_ver : '1.9.0'
-drill_mirror : 'https://getdrill.org/drill/download'
+drill_mirror : http://www-us.apache.org/dist/drill
 drill_checksum: sha256:ebe668054059b394298a294ab85e44d71facb3ecbf03bf475c5246a6c22fbc89
