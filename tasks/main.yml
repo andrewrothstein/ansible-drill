@@ -1,18 +1,37 @@
 ---
 - name: download drill...
-  environment: proxy_env
-  get_url: url='{{ drill_url }}' dest='/tmp/{{ drill_archive }}'
+  become: yes
+  become_user: root
+  get_url:
+    url: '{{drill_url}}'
+    dest: /tmp/{{drill_tgz}}
+    checksum: '{{drill_checksum}}'
 
 - name: unarchive dril...
-  unarchive: copy=no src='/tmp/{{ drill_archive }}' dest='/opt'
+  become: yes
+  become_user: root
+  unarchive:
+    copy: no
+    src: /tmp/{{drill_tgz}}
+    dest: '{{drill_install_parent_dir}}'
+    creates: '{{drill_install_parent_dir}}/{{drill_name}}'
 
-- name: link /opt/drill
-  file: src='/opt/{{ drill_name }}' dest='/opt/drill' state=link
+- name: link /usr/local/drill
+  become: yes
+  become_user: root
+  file:
+    src: '{{drill_install_parent_dir}}/{{drill_name}}'
+    dest: '{{drill_install_parent_dir}}/drill'
+    state: link
 
 - name: include drill in the default path...
-  copy: >
-    src=etc/profile.d/drill.sh
-    dest=/etc/profile.d/pig.sh
-    mode=644
-    owner=root
-    group=root
+  become: yes
+  become_user: root
+  with_items:
+    - f: drill.sh
+      d: /etc/profile.d
+      m: '0644'
+  template:
+    src: '{{item.f}}.j2'
+    dest: '{{item.d}}/{{item.f}}'
+    mode: '{{item.m}}'
