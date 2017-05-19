@@ -14,14 +14,14 @@
     copy: no
     src: /tmp/{{drill_tgz}}
     dest: '{{drill_install_parent_dir}}'
-    creates: '{{drill_install_parent_dir}}/{{drill_name}}'
+    creates: '{{drill_install_dir}}'
 
 - name: link /usr/local/drill
   become: yes
   become_user: root
   file:
-    src: '{{drill_install_parent_dir}}/{{drill_name}}'
-    dest: '{{drill_install_parent_dir}}/drill'
+    src: '{{drill_install_dir}}'
+    dest: '{{drill_link_dir}}'
     state: link
 
 - name: include drill in the default path...
