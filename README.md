@@ -1,7 +1,8 @@
-andrewrothstein.calico-cni
+andrewrothstein.drill
 =========
+[![Build Status](https://travis-ci.org/andrewrothstein/ansible-drill.svg?branch=master)](https://travis-ci.org/andrewrothstein/ansible-drill)
 
-Installs the [Apache Drill](https://drill.apache.org/)
+Installs [Apache Drill](https://drill.apache.org/)
 
 Requirements
 ------------
