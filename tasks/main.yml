@@ -11,7 +11,7 @@
   become: yes
   become_user: root
   unarchive:
-    copy: no
+    remote_src: no
     src: /tmp/{{drill_tgz}}
     dest: '{{drill_install_parent_dir}}'
     creates: '{{drill_install_dir}}'
