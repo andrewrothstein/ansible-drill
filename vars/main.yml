@@ -1,7 +1,11 @@
 ---
 drill_name : apache-drill-{{drill_ver}}
 drill_tgz : '{{drill_name}}.tar.gz'
+
+# http://mirrors.gigenet.com/apache/drill/drill-1.12.0/apache-drill-1.12.0.tar.gz
 drill_url : '{{drill_mirror}}/drill-{{drill_ver}}/{{drill_tgz}}'
+
+drill_checksum: '{{drill_checksums[drill_ver]}}'
 
 drill_install_dir: '{{drill_install_parent_dir}}/{{drill_name}}'
 drill_link_dir: '{{drill_install_parent_dir}}/drill'

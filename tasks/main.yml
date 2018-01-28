@@ -1,20 +1,35 @@
 ---
-- name: download drill...
+- name: check for install
   become: yes
-  become_user: root
-  get_url:
-    url: '{{drill_url}}'
-    dest: /tmp/{{drill_tgz}}
-    checksum: '{{drill_checksum}}'
+  stat:
+    path: '{{drill_install_dir}}'
+  changed_when: False
+  register: drill_binary
+- when: not drill_binary.stat.exists
+  block:
+    - name: download drill...
+      become: yes
+      become_user: root
+      get_url:
+        url: '{{drill_url}}'
+        dest: /tmp/{{drill_tgz}}
+        checksum: '{{drill_checksum}}'
 
-- name: unarchive dril...
-  become: yes
-  become_user: root
-  unarchive:
-    remote_src: yes
-    src: /tmp/{{drill_tgz}}
-    dest: '{{drill_install_parent_dir}}'
-    creates: '{{drill_install_dir}}'
+    - name: unarchive dril...
+      become: yes
+      become_user: root
+      unarchive:
+        remote_src: yes
+        src: /tmp/{{drill_tgz}}
+        dest: '{{drill_install_parent_dir}}'
+        creates: '{{drill_install_dir}}'
+  always:
+    - name: cleanup
+      become: yes
+      become_user: root
+      file:
+        path: /tmp/{{drill_tgz}}
+        state: absent
 
 - name: link /usr/local/drill
   become: yes
