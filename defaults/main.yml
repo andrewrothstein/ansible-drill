@@ -1,6 +1,6 @@
 ---
-drill_ver : '1.13.0'
-drill_mirror : http://www-us.apache.org/dist/drill
+drill_ver: '1.13.0'
+drill_mirror: http://www-us.apache.org/dist/drill
 
 drill_checksums:
   '1.10.0': sha256:92286f941cd0264eba57789d75759e7b598bf7463952dba40e81696452ea5d8a
