@@ -2,7 +2,7 @@
 - name: check for install
   become: yes
   stat:
-    path: '{{drill_install_dir}}'
+    path: '{{ drill_install_dir }}'
   changed_when: False
   register: drill_binary
 - when: not drill_binary.stat.exists
@@ -11,32 +11,32 @@
       become: yes
       become_user: root
       get_url:
-        url: '{{drill_url}}'
-        dest: /tmp/{{drill_tgz}}
-        checksum: '{{drill_checksum}}'
+        url: '{{ drill_url }}'
+        dest: /tmp/{{ drill_tgz }}
+        checksum: '{{ drill_checksum }}'
 
     - name: unarchive dril...
       become: yes
       become_user: root
       unarchive:
         remote_src: yes
-        src: /tmp/{{drill_tgz}}
-        dest: '{{drill_install_parent_dir}}'
-        creates: '{{drill_install_dir}}'
+        src: /tmp/{{ drill_tgz }}
+        dest: '{{ drill_install_parent_dir }}'
+        creates: '{{ drill_install_dir }}'
   always:
     - name: cleanup
       become: yes
       become_user: root
       file:
-        path: /tmp/{{drill_tgz}}
+        path: /tmp/{{ drill_tgz }}
         state: absent
 
 - name: link /usr/local/drill
   become: yes
   become_user: root
   file:
-    src: '{{drill_install_dir}}'
-    dest: '{{drill_link_dir}}'
+    src: '{{ drill_install_dir }}'
+    dest: '{{ drill_link_dir }}'
     state: link
 
 - name: include drill in the default path...
@@ -47,6 +47,6 @@
       d: /etc/profile.d
       m: '0644'
   template:
-    src: '{{item.f}}.j2'
-    dest: '{{item.d}}/{{item.f}}'
-    mode: '{{item.m}}'
+    src: '{{ item.f }}.j2'
+    dest: '{{ item.d }}/{{ item.f }}'
+    mode: '{{ item.m }}'

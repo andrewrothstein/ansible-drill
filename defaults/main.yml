@@ -1,5 +1,5 @@
 ---
-drill_ver: '1.13.0'
+drill_ver: '1.15.0'
 drill_mirror: http://www-us.apache.org/dist/drill
 
 drill_checksums:
@@ -7,5 +7,7 @@ drill_checksums:
   '1.11.0': sha256:f44c228c6cd245907337fdc4135688bf6f83fa8c6aef76588ef4d475339dc161
   '1.12.0': sha256:9db522b800b674cd7bdfeabbee1a924bd07e1e860bd435f5d7b4b3803f393c78
   '1.13.0': sha256:8da6d56f75ae01e0bee6176095d32760e7183dd0200f10ee68b8cd3f882def6a
+  # https://www.apache.org/dist/drill/drill-1.15.0/apache-drill-1.15.0.tar.gz.sha512
+  '1.15.0': sha512:a7bf2166b76cfbe9bf9e6282835df2a228df6b064673682b732d1b71e2bf6ffa18e76d0197f8de3d3e074862e486dea25576ae2c7fe47674dba8b8f46ccb1242
 
 drill_install_parent_dir: /usr/local
