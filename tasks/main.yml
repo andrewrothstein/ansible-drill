@@ -1,5 +1,5 @@
 ---
-- name: check for install
+- name: checking for install in {{ drill_install_dir }}
   become: yes
   stat:
     path: '{{ drill_install_dir }}'
@@ -7,31 +7,31 @@
   register: drill_binary
 - when: not drill_binary.stat.exists
   block:
-    - name: download drill...
+    - name: downloading {{ drill_url }}
       become: yes
       become_user: root
       get_url:
         url: '{{ drill_url }}'
-        dest: /tmp/{{ drill_tgz }}
+        dest: '{{ drill_tmp_tgz }}'
         checksum: '{{ drill_checksum }}'
 
-    - name: unarchive dril...
+    - name: unarchiving {{ drill_tmp_tgz }} to {{ drill_install_parent_dir }}
       become: yes
       become_user: root
       unarchive:
         remote_src: yes
-        src: /tmp/{{ drill_tgz }}
+        src: '{{ drill_tmp_tgz }}'
         dest: '{{ drill_install_parent_dir }}'
         creates: '{{ drill_install_dir }}'
   always:
-    - name: cleanup
+    - name: rm -f {{ drill_tmp_tgz }}
       become: yes
       become_user: root
       file:
-        path: /tmp/{{ drill_tgz }}
+        path: '{{ drill_tmp_tgz }}'
         state: absent
 
-- name: link /usr/local/drill
+- name: linking {{ drill_install_dir }} from {{ drill_link_dir }}
   become: yes
   become_user: root
   file:
@@ -39,7 +39,7 @@
     dest: '{{ drill_link_dir }}'
     state: link
 
-- name: include drill in the default path...
+- name: include drill in the default shell path...
   become: yes
   become_user: root
   with_items:
