@@ -1,6 +1,6 @@
 andrewrothstein.drill
 =========
-[![Build Status](https://travis-ci.org/andrewrothstein/ansible-drill.svg?branch=master)](https://travis-ci.org/andrewrothstein/ansible-drill)
+![Build Status](https://github.com/andrewrothstein/ansible-drill/actions/workflows/build.yml/badge.svg)
 
 Installs [Apache Drill](https://drill.apache.org/)
 
