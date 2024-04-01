@@ -1,10 +1,10 @@
 ---
 drill_name: apache-drill-{{ drill_ver }}
 drill_tgz: '{{ drill_name }}.tar.gz'
-drill_tmp_tgz: /tmp/{{ drill_tgz }}
+drill_tmp_tgz: '{{ drill_tmp_dir | default("/tmp") }}/{{ drill_tgz }}'
 
-# http://mirrors.gigenet.com/apache/drill/drill-1.12.0/apache-drill-1.12.0.tar.gz
-drill_url: '{{ drill_mirror }}/drill-{{ drill_ver }}/{{ drill_tgz }}'
+# https://dlcdn.apache.org/drill/1.21.1/apache-drill-1.21.1.tar.gz
+drill_url: '{{ drill_mirror }}/{{ drill_ver }}/{{ drill_tgz }}'
 
 drill_checksum: '{{ drill_checksums[drill_ver] }}'
 

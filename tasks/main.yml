@@ -1,52 +1,61 @@
 ---
-- name: checking for install in {{ drill_install_dir }}
-  become: yes
-  stat:
+- name: Installing andrewrothstein.unarchivedeps
+  ansible.builtin.include_role:
+    name: andrewrothstein.unarchivedeps
+- name: Installing andrewrothstein.temurin
+  ansible.builtin.include_role:
+    name: andrewrothstein.temurin
+  vars:
+    openjdk_app: jre
+- name: Checking for install in {{ drill_install_dir }}
+  become: true
+  ansible.builtin.stat:
     path: '{{ drill_install_dir }}'
-  changed_when: False
+  changed_when: false
   register: drill_binary
-- when: not drill_binary.stat.exists
+- name: Downloading apache drill
+  when: not drill_binary.stat.exists
   block:
-    - name: downloading {{ drill_url }}
-      become: yes
+    - name: Downloading {{ drill_url }}
+      become: true
       become_user: root
-      get_url:
+      ansible.builtin.get_url:
         url: '{{ drill_url }}'
         dest: '{{ drill_tmp_tgz }}'
         checksum: '{{ drill_checksum }}'
+        mode: '644'
 
-    - name: unarchiving {{ drill_tmp_tgz }} to {{ drill_install_parent_dir }}
-      become: yes
+    - name: Unarchiving {{ drill_tmp_tgz }} to {{ drill_install_parent_dir }}
+      become: true
       become_user: root
-      unarchive:
-        remote_src: yes
+      ansible.builtin.unarchive:
+        remote_src: true
         src: '{{ drill_tmp_tgz }}'
         dest: '{{ drill_install_parent_dir }}'
         creates: '{{ drill_install_dir }}'
   always:
-    - name: rm -f {{ drill_tmp_tgz }}
-      become: yes
+    - name: Rm -f {{ drill_tmp_tgz }}
+      become: true
       become_user: root
-      file:
+      ansible.builtin.file:
         path: '{{ drill_tmp_tgz }}'
         state: absent
 
-- name: linking {{ drill_install_dir }} from {{ drill_link_dir }}
-  become: yes
+- name: Linking {{ drill_install_dir }} from {{ drill_link_dir }}
+  become: true
   become_user: root
-  file:
+  ansible.builtin.file:
     src: '{{ drill_install_dir }}'
     dest: '{{ drill_link_dir }}'
     state: link
 
-- name: include drill in the default shell path...
-  become: yes
+- name: Include drill in the default shell path...
+  become: true
   become_user: root
   with_items:
     - f: drill.sh
       d: /etc/profile.d
-      m: '0644'
-  template:
+  ansible.builtin.template:
     src: '{{ item.f }}.j2'
     dest: '{{ item.d }}/{{ item.f }}'
-    mode: '{{ item.m }}'
+    mode: '{{ item.m | default("644") }}'

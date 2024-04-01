@@ -1,35 +1,33 @@
-dependencies:
-- role: andrewrothstein.unarchive-deps
-  version: v1.2.1
-- openjdk_app: jre
-  role: andrewrothstein.openjdk
-  version: v2.0.17
+---
 galaxy_info:
   author: Andrew Rothstein
   company: BlackRock
   description: Apache Drill role
   galaxy_tags:
-  - dataanalytics
-  - bigdata
-  - hadoop
-  license:
-  - MIT
-  min_ansible_version: 2.0
+    - dataanalytics
+    - bigdata
+    - hadoop
+  license: MIT
+  min_ansible_version: '2.0'
+  namespace: andrewrothstein
   platforms:
-  - name: Archlinux
-    versions:
-      - all
-  - name: Debian
-    versions:
-      - bullseye
-      - buster
-  - name: EL
-    versions:
-    - 8
-  - name: Fedora
-    versions:
-    - 34
-  - name: Ubuntu
-    versions:
-    - bionic
-    - focal
+    - name: ArchLinux
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - bookworm
+        - bullseye
+    - name: EL
+      versions:
+        - '8'
+        - '9'
+    - name: Fedora
+      versions:
+        - '38'
+        - '39'
+    - name: Ubuntu
+      versions:
+        - focal
+        - jammy
+  role_name: drill
